@@ -1,0 +1,9 @@
+---
+
+- name: Install mssql server packages
+  apt: 
+    pkg: "{{ item }}"
+    state: present
+    install_recommends: yes
+  with_items:
+    - mssql-server

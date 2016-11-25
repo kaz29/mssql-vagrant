@@ -1,0 +1,7 @@
+---
+
+- include: repo.yml
+- include: server.yml
+  when: mssql_server is defined and mssql_server == True
+- include: tools.yml
+  when: mssql_tools is defined and mssql_tools == True

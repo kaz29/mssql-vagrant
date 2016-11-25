@@ -1,0 +1,12 @@
+---
+
+- name: Install mssql tools packages
+  apt: 
+    pkg: "{{ item }}"
+    install_recommends: yes
+    state: present
+  environment:
+    ACCEPT_EULA: Y
+  with_items:
+    - msodbcsql
+    - mssql-tools

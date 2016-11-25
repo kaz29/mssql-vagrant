@@ -1,0 +1,24 @@
+---
+
+- name: Add Microsoft APT key
+  apt_key: 
+    url: "{{ mssql_repo_key_url }}"
+    id: "{{ mssql_repo_key_id }}"
+    state: present
+
+- name: Add mssql server APT repository
+  apt_repository:
+    repo: "deb {{ mssql_server_repository }} {{ mssql_distribution }} main"
+    state: present
+    update_cache: yes
+
+- name: Add mssql tools APT repository
+  apt_repository:
+    repo: "deb {{ mssql_tool_repository }} {{ mssql_distribution }} main"
+    state: present
+    update_cache: yes
+
+- name: Get Latest apt package list
+  apt:
+    update_cache: yes
+

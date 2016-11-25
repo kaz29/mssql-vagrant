@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  become: yes
+  connection: local
+  vars:
+    mssql_server: true
+    mssql_tools: true
+  roles:
+    - mssql
+
