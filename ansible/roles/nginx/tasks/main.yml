@@ -1,0 +1,23 @@
+---
+
+- name: Install nginx Packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - nginx
+
+- name: be sure nginx is running and enabled
+  service: 
+    name: nginx
+    state: running
+    enabled: yes
+
+- name: Configure node site
+  template: 
+    src: default.j2
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx

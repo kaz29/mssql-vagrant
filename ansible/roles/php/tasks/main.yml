@@ -1,0 +1,47 @@
+---
+
+- name: Install php packages
+  apt: 
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - php7.0
+    - php7.0-dev
+    - php7.0-cli
+    - php7.0-curl
+    - php7.0-gd
+    - php7.0-json
+    - php7.0-xml
+    - php7.0-xsl
+    - php7.0-mcrypt
+    - php7.0-intl
+    - php7.0-mbstring
+    - php7.0-zip
+    - php-pear
+    - composer
+
+- name: Install PECL/PEAR packages
+  pear:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - pecl/sqlsrv-4.0.6
+    - pecl/pdo_sqlsrv-4.0.6
+
+- name: Add php module setting
+  template: 
+    src: module.j2
+    dest: /etc/php/7.0/mods-available/{{ item }}.ini
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - sqlsrv
+    - pdo_sqlsrv
+
+- name: Activate php modules
+  command: phpenmod {{ item }}
+  no_log: True
+  with_items:
+    - sqlsrv
+    - pdo_sqlsrv

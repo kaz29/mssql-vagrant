@@ -5,6 +5,10 @@
   vars:
     mssql_server: true
     mssql_tools: true
+    nginx_document_root: /home/vagrant/application/app/webroot
   roles:
+    - packages
+    - php
+    - nginx
     - mssql
 

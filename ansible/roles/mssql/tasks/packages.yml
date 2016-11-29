@@ -1,0 +1,9 @@
+---
+
+- name: Install mssql packages
+  apt: 
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - msodbcsql
+    - unixodbc-dev-utf16

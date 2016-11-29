@@ -34,6 +34,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     server.vm.network :private_network, ip: "192.168.53.10"
     server.vm.network :forwarded_port, host: 8532, guest: 22
 
+    server.vm.synced_folder "application", "/home/vagrant/application",
+     id: "vagrant-root", :nfs => false,
+     :owner => "vagrant",
+     :group => "www-data",
+     :mount_options => ["dmode=775,fmode=775"]
+
     server.vm.provision "ansible_local" do |ansible|
       ansible.limit               = 'all'
       ansible.install             = true
